@@ -89,4 +89,77 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Brand Voice queries
+export async function getBrandVoice(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  // Note: This is a placeholder. Implement actual brand_voice table query when needed.
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function upsertBrandVoice(
+  userId: number,
+  data: {
+    niche?: string;
+    targetAudience?: string;
+    tone?: string;
+    contentPillars?: string[];
+  }
+) {
+  const db = await getDb();
+  if (!db) return undefined;
+  // Implementation for brand voice upsert
+  return { userId, ...data };
+}
+
+// Connected Platforms queries
+export async function getConnectedPlatforms(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  // Implementation for getting connected platforms
+  return [];
+}
+
+// Trends queries
+export async function getTrendingTopics(limit: number = 10) {
+  const db = await getDb();
+  if (!db) return [];
+  // Implementation for fetching trending topics
+  return [];
+}
+
+// Generated Content queries
+export async function saveGeneratedContent(
+  userId: number,
+  data: {
+    trendId?: number;
+    platform: string;
+    contentType: string;
+    contentText: string;
+    hookText?: string;
+    bodyText?: string;
+    ctaText?: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) return undefined;
+  // Implementation for saving generated content
+  return { userId, ...data };
+}
+
+// Content Library queries
+export async function getSavedContent(userId: number, filters?: { platform?: string; status?: string }) {
+  const db = await getDb();
+  if (!db) return [];
+  // Implementation for getting saved content with filters
+  return [];
+}
+
+// Daily Briefing queries
+export async function getDailyBriefing(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  // Implementation for getting daily briefing
+  return undefined;
+}

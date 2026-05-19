@@ -4,13 +4,27 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import CustomDashboardLayout from "./components/CustomDashboardLayout";
 import Home from "./pages/Home";
+import TrendAnalyzer from "./pages/TrendAnalyzer";
+import ContentGenerator from "./pages/ContentGenerator";
+import ScriptEditor from "./pages/ScriptEditor";
+import ContentCalendar from "./pages/ContentCalendar";
+import ContentLibrary from "./pages/ContentLibrary";
+import BrandVoiceSettings from "./pages/BrandVoiceSettings";
+import DailyBriefing from "./pages/DailyBriefing";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/trends"} component={TrendAnalyzer} />
+      <Route path={"/generator"} component={ContentGenerator} />
+      <Route path={"/editor/:id?"} component={ScriptEditor} />
+      <Route path={"/calendar"} component={ContentCalendar} />
+      <Route path={"/library"} component={ContentLibrary} />
+      <Route path={"/settings"} component={BrandVoiceSettings} />
+      <Route path={"/briefing"} component={DailyBriefing} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -18,21 +32,15 @@ function Router() {
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <CustomDashboardLayout>
+            <Router />
+          </CustomDashboardLayout>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
